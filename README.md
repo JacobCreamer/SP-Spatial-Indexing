@@ -17,7 +17,7 @@
 | Input | Description |
 |-------|-------------|
 | Enable/Disable CSV Outputs | CSV outputs contain a chart of spatially ordered savepoints and their associated AEF data. Two CSVs are created, one for SWL and one for Hm0. |
-| Enable/Disable Raster Plot | IF enabled, a raster plot is created using the provided DEM. |
+| Enable/Disable Raster Plot | If enabled, a raster plot is created using the provided DEM. |
 | Raster Scaling Factor | A scaling factor for decreasing the size of the raster before plotting. |
 
 
@@ -33,7 +33,7 @@
 ### Map plot of project 
 
 
-The savepoints are plotted and labeled according to data extracted from H5s. The shape file is plotted to represent the structure. Shortest distance lines are plotted to show point locations where AEF data is plotted along structure profile. Mispoints between savepoint plot locations are marked with a black 'x'. The beginning point of the shapefile is marked with a red '*'.
+The savepoints are plotted and labeled according to data extracted from H5s. The shape file is plotted to represent the structure. Shortest distance lines are plotted to show point locations where AEF data is plotted along structure profile. Midpoints between savepoint plot locations are marked with a black 'x'. The beginning point of the shapefile is marked with a red '*'.
 
 
 ![Map plot of project.](https://github.com/JacobCreamer/SP-Spatial-Organization/assets/145397806/8e442491-1be2-4ed8-bb32-309eab16c48f)
