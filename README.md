@@ -87,3 +87,11 @@ Hm0 AEF data is plotted along the profile of the structure.
 
 ![hm0_profile_3](https://github.com/JacobCreamer/SP-Spatial-Organization/assets/145397806/8bd90f43-87f5-4648-9a23-2169a7a31488)
 
+
+### Output CSV Example
+
+
+Each column is labeled at top row with the savepoint name. Savepoints are spatially ordered and all AEF data is recorded.
+
+
+![csv_example](https://github.com/JacobCreamer/SP-Spatial-Organization/assets/145397806/8bec6a44-3569-4ff8-9762-8e5762f91a83)
