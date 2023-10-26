@@ -24,6 +24,12 @@ Also note: The call_chs_h5_converter.m and chs_h5_converter.m scripts must both 
 | Raster Scaling Factor | A scaling factor for decreasing the size of the raster before plotting. |
 
 
+## Example User Input Section
+
+
+![User_inputs](https://github.com/JacobCreamer/SP-Spatial-Organization/assets/145397806/6f83af99-7512-41d3-b85f-1480c1beda78)
+
+
 ## Example Directory
 
 
