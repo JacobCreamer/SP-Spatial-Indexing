@@ -11,6 +11,9 @@
 | Units of Elevation Data | Specify if elevation data is in meters of feet. |
 
 
+Also note: The call_chs_h5_converter.m and chs_h5_converter.m scripts must both be in the directory or a path added to access them. These scripts are required for converting the H5 files into a matlab structure so that the data can be read for each file. 
+
+
 ## Optional Inputs
 
 
