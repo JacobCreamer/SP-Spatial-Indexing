@@ -66,7 +66,7 @@ Hm0 AEF data is plotted for each savepoint. Once again, the savepoints are spati
 SWL AEF data is plotted along the profile of the structure.
 
 
-![swl_aef_profile](https://github.com/JacobCreamer/SP-Spatial-Organization/assets/145397806/26ec3365-f6b6-4627-8d66-2193e3b3e8bd)
+![swl_profile_3](https://github.com/JacobCreamer/SP-Spatial-Organization/assets/145397806/3c73dfdb-f21d-42d9-aeaa-b4c5b9bb1aab)
 
 
 ---
@@ -76,4 +76,5 @@ SWL AEF data is plotted along the profile of the structure.
 Hm0 AEF data is plotted along the profile of the structure.
 
 
-![Hm0_aef_profile](https://github.com/JacobCreamer/SP-Spatial-Organization/assets/145397806/f05a9ca8-196f-488f-9777-1f6d6cce1eed)
+![hm0_profile_3](https://github.com/JacobCreamer/SP-Spatial-Organization/assets/145397806/8bd90f43-87f5-4648-9a23-2169a7a31488)
+
