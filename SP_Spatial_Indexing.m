@@ -12,6 +12,8 @@ addpath 'C:\USACE Work\Work Scripts\Spatial Analysis of Hazards - AEF and Profil
 %     "CHS-LA_TS_SimBrfc2_Post_SP00010_Stat_AEF.csv", ...
 %     "CHS-LA_TS_SimBrfc2_Post_SP08005_Stat_AEF.csv", ...
 %     "CHS-LA_TS_SimBrfc2_Post_SP15444_Stat_AEF.csv"]; 
+% specify is AEF or AEP files are listed above (0 = AEF files, 1 = AEP files)
+% use_aep = 0 
 
 % Option 2: find all h5 files in current folder (0 = no, 1 = yes)
 find_files = 1;
