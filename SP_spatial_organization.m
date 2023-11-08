@@ -1,7 +1,7 @@
 clc; clear; close all;
 
 warning('off','MATLAB:table:ModifiedAndSavedVarnames');
-addpath 'C:\USACE Work\Work Scripts\Spatial Analysis of Hazards - AEF and Profile\Code\Scituate Reach'
+addpath 'C:\USACE Work\Work Scripts\Spatial Analysis of Hazards - AEF and Profile\1st Application - LaRose - Golden Meadow\Shapefiles'
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% User Inputs %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -19,17 +19,17 @@ find_files = 1;
 
                       %%%% PROFILE DATA %%%%
 % Option 1: load a csv file for the profile
-% profile_file = table2array(readtable('system_4405000513_profile.csv'));
+profile_file = table2array(readtable('system_4405000513_profile.csv'));
 
 % Option 2: load elevation information and shapefile (Specify filename)
-[A,R] = readgeoraster('Scituate_bathymetric_viewer.tif');
-[boundary_shp,shp_info] = shaperead('Scituate_Reach.shp');
+% [A,R] = readgeoraster('LaRose_GM_NCEI_CUDEM.tif');
+% [boundary_shp,shp_info] = shaperead('POLYLINE.shp');
 
 
 
                      %%%% Other Options %%%%
 % Units for profile data: 0 = meters, 1 = feet
-units = 0;
+units = 1;
 % specify if output csvs for swl & Hm0 are created: 0 = no, 1 = yes
 create_output_csvs = 1;
 % Plot raster and shapefile: 0 = no, 1 = yes
@@ -39,9 +39,12 @@ downscale_factor = 0.3;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% search for AEF.h5s
 if find_files == 1
     in_file_struct = dir('*AEF.h5');
     in_file_list = {in_file_struct.name};
+    use_aep = 0;
+    % search for AEP.h5s if no AEF.h5s exist
     if isempty(in_file_struct) == 1
         in_file_struct = dir('*AEP.h5');
         in_file_list = {in_file_struct.name};
@@ -49,15 +52,18 @@ if find_files == 1
     end
 end
 
+% pull lat and long from csv if it was included
 if exist('profile_file')
     shp_matrix = profile_file(:,1:2);
     lon_shp = profile_file(:,1);
     lat_shp = profile_file(:,2);
+    % correct units if needed
     if units == 1
         profile_file(:,3:4) = profile_file(:,3:4)/3.281;
     end
 end
 
+% pull lat and long from shapefile if it was included
 if exist("boundary_shp")
     lon_shp = boundary_shp.X;
     lat_shp = boundary_shp.Y;
@@ -69,26 +75,25 @@ end
 Hm0_out_table = table;   
 swl_out_table = table;
 
-% read the first AEF file in list to pull AEF markers
+% read the first file in list to pull AEF/AEP markers
+read_first_table = chs_h5_converter(string(in_file_list(1)));
 if use_aep == 1
-    read_first_table = chs_h5_converter(string(in_file_list(1)));
     AEP_values = table(getfield(read_first_table,{1},'Table_StormData','AEP Values',{1:13}));
     AEP_values.Properties.VariableNames{1} = 'AEP Values';
 else
-    read_first_table = chs_h5_converter(string(in_file_list(1)));
     AEF_values = table(getfield(read_first_table,{1},'Table_StormData','AEF Values',{1:22}));
     AEF_values.Properties.VariableNames{1} = 'AEF Values';
 end
 
 % append AEF markers to out tables
-if use_aep == 1
-    swl_out_table = [swl_out_table AEP_values];
-else
+if use_aep == 0
     Hm0_out_table = [Hm0_out_table AEF_values];
     swl_out_table = [swl_out_table AEF_values];
+else
+    swl_out_table = [swl_out_table AEP_values];
 end
 
-% create lists that will be needed
+% create arrays that will be needed
 sp_name_list = zeros(length(in_file_list),1);
 lat = zeros(length(in_file_list),1);
 lon = zeros(length(in_file_list),1);
@@ -110,22 +115,20 @@ for i = 1:length(in_file_list)
     lon(i) = sp_lon;
     
     % get the AEF/AEP data for Hm0 and swl
-    if use_aep == 1
-        swl_in_table = table(getfield(Data_out,{i},"Conv_Data",{1},'Table_StormData','Expected Value AEP',{1:13}));
+    if use_aep == 0
+        Hm0_in_table = table(getfield(Data_out,{i},"Conv_Data",{1},'Table_StormData','Best Estimate AEF',{1:22}));
+        Hm0_in_table = renamevars(Hm0_in_table,"Var1",string(sp_name));
+        swl_in_table = table(getfield(Data_out,{i},"Conv_Data",{3},'Table_StormData','Best Estimate AEF',{1:22}));
         swl_in_table = renamevars(swl_in_table,"Var1",string(sp_name));
     else
-        Hm0_in_table = table(getfield(Data_out,{i},"Conv_Data",{1},'Table_StormData','Expected Value AEP',{1:22}));
-        Hm0_in_table = renamevars(Hm0_in_table,"Var1",string(sp_name));
-        swl_in_table = table(getfield(Data_out,{i},"Conv_Data",{3},'Table_StormData','Expected Value AEP',{1:22}));
+        swl_in_table = table(getfield(Data_out,{i},"Conv_Data",{1},'Table_StormData','Expected Value AEP',{1:13}));
         swl_in_table = renamevars(swl_in_table,"Var1",string(sp_name));
     end
 
     % append the AEF data to each out table
-    if use_aep == 1
-        swl_out_table = [swl_out_table swl_in_table];
-    else
+    swl_out_table = [swl_out_table swl_in_table];
+    if use_aep == 0
         Hm0_out_table = [Hm0_out_table Hm0_in_table];
-        swl_out_table = [swl_out_table swl_in_table];
     end
 end
 
