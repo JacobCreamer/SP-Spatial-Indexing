@@ -1,4 +1,4 @@
-# SP-Spatial-Organization
+# SP-Spatial-Indexing
 
 ## Required Inputs
 
