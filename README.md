@@ -7,7 +7,7 @@
 |-------|-------------|
 | Elevation Data Option 1: CSV file | Use a CSV file with latitude, longitude, total distance to each point, and elevation at each point alpong the profile. | 
 | Elevation Data Option 2: DEM & Shapefile | The elevation data is extracted to each point along the shapefile. An equivalent to the Option 1 CSV is created in the script to perform the same functions. |
-| AEF H5 Files | A list of H5 files can be specified or all H5s can be read from the working directory. |
+| AEF or AEP H5 Files | A list of H5 files can be specified or all H5s can be read from the working directory. |
 | Units of Elevation Data | Specify if elevation data is in meters of feet. |
 
 
