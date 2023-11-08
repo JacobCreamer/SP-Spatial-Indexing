@@ -18,10 +18,10 @@ find_files = 1;
 
 
                       %%%% PROFILE DATA %%%%
-% Option 1: load a csv file for the profile
+% Option 1: provide a csv file for the profile
 profile_file = table2array(readtable('system_4405000513_profile.csv'));
 
-% Option 2: load elevation information and shapefile (Specify filename)
+% Option 2: provide elevation information (raster) and shapefile
 % [A,R] = readgeoraster('LaRose_GM_NCEI_CUDEM.tif');
 % [boundary_shp,shp_info] = shaperead('POLYLINE.shp');
 
@@ -85,7 +85,7 @@ else
     AEF_values.Properties.VariableNames{1} = 'AEF Values';
 end
 
-% append AEF markers to out tables
+% append AEF/AEP markers to out tables
 if use_aep == 0
     Hm0_out_table = [Hm0_out_table AEF_values];
     swl_out_table = [swl_out_table AEF_values];
